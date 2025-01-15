@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="icon" href="https://logospng.org/download/jovem-pan/jovem-pan-256.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <title>JP News | Jovem Pan </title>
+    <style>
+        @media (min-width: 992px) {
+            .btn-custom {
+                font-size: 1.2rem;
+                /* Aumenta o tamanho dos botões no desktop */
+            }
+        }
+
+        @media (max-width: 991px) {
+            .btn-custom {
+                font-size: 0.9rem;
+                /* Diminui o tamanho dos botões em celulares */
+            }
+        }
+
+        .custom-card {
+            width: 100%;
+            /* Para ocupar toda a largura da coluna */
+            max-width: 700px;
+            /* Largura máxima desejada */
+            margin: auto;
+            /* Centraliza o card */
+        }
+
+        .responsive-image {
+            max-width: 100%;
+            /* Garante que a imagem não ultrapasse a largura do contêiner */
+            height: auto;
+            /* Mantém a proporção da imagem */
+        }
+
+        .video-container {
+            width: 100%;
+            /* Garante que o vídeo ocupe toda a largura do contêiner */
+            max-width: 800px;
+            /* Limite de largura do vídeo */
+            margin-bottom: 20px;
+            /* Espaçamento inferior em telas pequenas */
+        }
+
+        .video-container iframe {
+            width: 100%;
+            /* Garante que o vídeo ocupe toda a largura do contêiner */
+            height: auto;
+            /* Mantém a proporção do vídeo */
+            aspect-ratio: 16 / 9;
+            /* Mantém a proporção 16:9 */
+        }
+
+        .photo-container {
+            display: flex;
+            /* Permite que as imagens fiquem lado a lado */
+            flex-direction: column;
+            /* As imagens ficam em coluna por padrão */
+            justify-content: flex-start;
+            /* Alinha ao topo */
+            gap: 10px;
+            /* Espaçamento entre as imagens */
+        }
+
+        /* Media Query para telas maiores */
+        @media (min-width: 768px) {
+            .video-container {
+                margin-bottom: 0;
+                /* Remove o espaçamento inferior em telas grandes */
+            }
+
+            .photo-container {
+                flex-direction: row;
+                /* Alinha as imagens lado a lado em telas maiores */
+            }
+
+            .photo-image {
+                flex: 1;
+                /* As imagens ocupam espaço igual */
+                min-width: 200px;
+                /* Largura mínima para as imagens */
+                max-width: 100%;
+                /* Garante que não ultrapassem a largura do contêiner */
+            }
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #181717;
+            font-family: Arial, sans-serif;
+        }
+
+        .top-bar {
+            background-color: #ffffff;
+            color: #070707;
+            text-align: center;
+            padding: 5px;
+            font-weight: bold;
+        }
+
+        a {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #f10101;
+            text-decoration: underline;
+        }
+
+        .pulsar {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: pulsate 1s infinite alternate;
+        }
+
+        @keyframes pulsate {
+            0% {
+                background-color: red;
+            }
+
+            100% {
+                background-color: white;
+            }
+        }
+
+        .custom-image {
+            width: 100%;
+            /* Largura total do contêiner */
+            max-width: 800px;
+            /* Largura máxima da imagem */
+            height: auto;
+            /* Mantém a proporção da imagem */
+            margin-top: 20px;
+            /* Espaçamento do topo */
+        }
+
+        .photo-container {
+            display: flex;
+            flex-direction: column;
+            /* Coloca as fotos uma em cima da outra */
+            gap: 10px;
+            /* Espaçamento entre as fotos */
+            margin-left: 20px;
+            /* Espaçamento à esquerda das imagens */
+        }
+
+        .photo-image {
+            width: 380px;
+            /* Ajuste a largura das imagens para ficarem menores */
+            height: auto;
+            /* Mantém a proporção da imagem */
+        }
+
+        .card {
+            margin-bottom: 15px;
+            /* Espaçamento entre os cards */
+            max-width: 350px;
+            /* Largura máxima dos cards */
+        }
+
+        .description {
+            display: flex;
+            flex-direction: column;
+            /* Imagem em cima do texto */
+        }
+
+        .description-text {
+            margin-top: 10px;
+            /* Espaço entre imagem e texto */
+        }
+
+        .img-left {
+            margin-right: 10px;
+            /* Espaço entre imagem e texto à esquerda */
+        }
+
+        @media (min-width: 768px) {
+            .description {
+                flex-direction: row;
+                /* Imagem ao lado do texto em telas maiores */
+            }
+
+            .description-text {
+                margin-top: 0;
+                /* Remove o espaço entre imagem e texto em telas maiores */
+            }
+        }
+
+        .description img {
+            margin-right: 30px;
+            /* Aumenta o espaço à direita da imagem */
+        }
+
+        .card-img-top {
+            width: auto;
+            /* Mantém a largura automática */
+            height: 200px;
+            /* Define uma altura fixa (ajuste conforme necessário) */
+            object-fit: cover;
+            /* Corta a imagem se necessário, mantendo a proporção */
+        }
+
+        .description {
+            display: flex;
+            align-items: flex-start;
+            /* Alinha o conteúdo ao topo */
+        }
+
+        .card {
+            width: 100%;
+            /* Certifica-se de que o card ocupe toda a largura da coluna */
+        }
+
+        .d-flex img {
+            max-width: 400px;
+            /* Limita a largura da imagem */
+            height: auto;
+            /* Mantém a proporção da imagem */
+            flex-shrink: 0;
+            /* Impede que a imagem encolha */
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            /* Escondida inicialmente */
+            width: 250px;
+            height: 100%;
+            background-color: #343a40;
+            color: white;
+            transition: left 0.3s;
+            padding-top: 20px;
+        }
+
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+            /* Fica acima de outros elementos */
+        }
+
+        /* Mostrar a sidebar ao passar o mouse sobre o botão */
+        .menu-toggle:hover+.sidebar {
+            left: 0;
+            /* Exibe a sidebar */
+        }
+
+        .sidebar a {
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+        }
+
+        .sidebar a:hover {
+            background-color: #ffffff;
+        }
+
+        .card {
+            margin: 15px;
+            /* Espaçamento entre os cards */
+            width: 300px;
+            /* Largura fixa para os cards */
+        }
+
+        .card-text {
+            text-align: right;
+            /* Alinha o texto à direita */
+        }
+
+        .card-container {
+            margin-left: -10%;
+            /* Ajusta a posição dos cards para a direita */
+        }
+
+        .side-image {
+            max-width: 300px;
+            /* Limita a largura da imagem lateral */
+            margin-left: 100px;
+            /* Espaço entre os cards e a imagem */
+        }
+
+        .btn-custom {
+            background-color: rgb(7, 7, 7);
+            /* Fundo branco */
+            color: rgb(255, 245, 245);
+            /* Texto preto */
+            border: 1px solid #000000;
+            /* Borda opcional */
+        }
+
+        .btn-custom:hover {
+            background-color: #faf8f8;
+            /* Efeito ao passar o mouse */
+        }
+
+        .custom-card {
+            width: 200%;
+            /* Ajuste a largura do card */
+            height: 400px;
+            /* Ajuste a altura do card */
+            margin: 10px 0;
+            /* Margem entre os cards */
+        }
+
+        .card-img-top {
+            height: 600px;
+            /* Ajuste a altura da imagem */
+            object-fit: cover;
+            /* Mantenha a proporção da imagem */
+        }
+
+        .navbar {
+            background-color: #83878b;
+            /* Cor da navbar */
+        }
+
+        .navbar-nav .nav-link {
+            color: #080808;
+            /* Cor do texto dos links */
+            padding: 10px 15px;
+            /* Padding para espaçamento */
+            transition: background-color 0.3s, transform 0.3s;
+            /* Transições suaves */
+        }
+
+        .navbar-nav .nav-link:hover {
+            background-color: #696363fa;
+            /* Cor ao passar o mouse */
+            border-radius: 5px;
+            /* Borda arredondada */
+            transform: scale(1.05);
+            /* Efeito de leve aumento */
+        }
+
+        .top-bar {
+            background-color: #f8f9fa;
+            /* Cor da parte superior */
+        }
+
+        .btn-custom {
+            color: #343a40;
+            /* Cor dos botões */
+            border: 1px solid #bebfc0;
+            /* Borda dos botões */
+            transition: background-color 0.3s;
+            /* Transição suave */
+        }
+
+        .btn-custom:hover {
+            background-color: #343a40;
+            /* Cor ao passar o mouse */
+            color: #070707;
+            /* Texto branco */
+        }
+
+        .marquee-text {
+            font-family: 'arial', sans-serif;
+            /* Muda a fonte do marquee */
+            font-size: 18px;
+            /* Ajuste o tamanho da fonte conforme necessário */
+            line-height: 30px;
+            /* Ajuste a altura da linha */
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="https://logospng.org/download/jovem-pan/jovem-pan-256.png" alt="JP NEWS Logo"
+                    style="width: 50px; height: 50px; margin-right: 10px;">
+                <h5 class="text-danger fw-bold" style="margin: 0;">JP NEWS</h5>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="#">Mude A Cidade</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ouça Ao Vivo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="inicio_jp.html">Jp News</a></li>
+                    <li class="nav-item"><a class="nav-link" href="politica.html">Política</a></li>
+                    <li class="nav-item"><a class="nav-link" href="brasil.html">Brasil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="economia.html">Economia</a></li>
+                    <li class="nav-item"><a class="nav-link" href="mundo.html">Mundo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="sportes.html">Esporte</a></li>
+                    <li class="nav-item"><a class="nav-link" href="saude.html">Saúde</a></li>
+                    <li class="nav-item"><a class="nav-link" href="entretenimento.html">Entretenimento</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contato.html">Contato</a></li>
+                </ul>
+                <form class="d-flex me-3">
+                    <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">Pesquisar</button>
+                </form>
+                <div class="d-none d-lg-block">
+                    <a href="#" class="btn btn-danger">Entrar Na Conta
+                        <img src="https://cdn-icons-png.flaticon.com/512/3033/3033143.png" alt="Imagem"
+                            style="width: 30px; height: 30px; margin-left: 10px;">
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div
+        style="background-color: black; padding: 15px 0; position: relative; top: 56px; width: 100%; text-align: center;">
+        <div
+            style="max-width: 70%; margin: 0 auto; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+            <span class="text-light" style="margin-right: 10px;">JP NEWS</span>
+            <div class="pulsar"></div>
+            <marquee behavior="scroll" direction="left" scrollamount="12" style="white-space: nowrap; color: white;">
+                • Julgamento de recurso do acidente do voo Rio-Paris de 2009 será realizado na França em 2025
+                • Rock in Rio 2024: confira programação desta sexta com line-up e horário dos shows
+                • Bombeiros de Mato Grosso monitoram incêndios em 17 propriedades rurais
+                • Consultoria afirma que Elon Musk será trilionário em 2027
+                • Netanyahu reduz viagem aos EUA em meio a conflito com Hezbollah
+                • TRE derruba propaganda de campanha de Ramagem que associava Paes ao assassinato de Marielle
+                • Meta anuncia suspensão de anúncios políticos durante eleição após pedido do TSE
+                • Israel lança maior bombardeio contra o Líbano desde início da guerra e mata comandante da força de
+                elite do Hezbollah
+                • Governo federal projeta mudanças no crédito consignado e saque-aniversário do FGTS
+                • Detran-SP reforça ações na Semana Nacional de Trânsito
+                • Banco Central comunica vazamento de 150 cadastros da Shopee
+                • Pesquisas pós-debate mostram empate entre Kamala e Trump
+                • Rio de Janeiro, São Paulo, Salvador e Curitiba serão afetadas pela migração climática, diz estudo
+                • Paraná Pesquisas: Ricardo Nunes (MDB) lidera corrida para Prefeitura de SP com 26,8% de intenções de
+                voto
+                • Brasil registra baixa cobertura vacinal contra a dengue com 48,88% de doses aplicadas
+                • Relatório da ONU e de ONGs denuncia tortura sistemática sob regime de Nicolás Maduro na Venezuela
+                • Irã promete resposta esmagadora a Israel após ataques ao Líbano
+                • Maduro critica opositor que buscou asilo na Espanha após derrota eleitoral
+                • Polícia Civil identifica responsáveis por disparos que feriram adolescente em tiroteio no Complexo da
+                Maré
+                • Endrick é comparado a Ferenc Puskas após estreia na Liga dos Campeões
+                • Mega-Sena acumula e prêmio chega a R$ 6 milhões
+                • Flamengo é derrotado pelo Peñarol e volta a perder em casa na Libertadores após cinco anos
+                • Rede social X acata ordem judicial e volta a ficar indisponível no Brasil
+                • Hezbollah diz que Israel cruzou ‘linha vermelha’ e que ataques com pagers representam uma declaração
+                de guerra
+                • Governo Federal avança em projeto da ferrovia Transnordestina com investimento de R$ 15,2 milhões
+                • Lula apresenta nova ministra dos Direitos Humanos em evento com Anielle Franco
+                • Senacon investiga pré-instalação de aplicativos de apostas em celulares
+                • Carregador portátil, capas de chuva e comida: confira itens essenciais para levar para o Rock in Rio
+                • Dólar cai a menor valor em um mês e fecha a R$ 5,42 com diferencial de juro entre Fed e Copom
+                • Israel bombardeia centenas de sistemas de lançadores de foguetes no Líbano
+                • Ministro da Saúde do Líbano diz que ataques ao Hezbollah com pagers são crimes de guerra
+                • X defende acesso de usuários no STF após bloqueio no Brasil
+                • Lateral brasileiro se destaca e ajuda o Monaco a vencer o Barcelona em estreia na Liga dos Campeões
+                • Rui Costa destaca colaboração de Estados para combater incêndios no Brasil
+                • Brasil brilha no Mundial de Skate Park em Roma e 13 atletas garantem vaga nas quartas de final
+            </marquee>
+        </div>
+    </div>
+    <div class="container text-center mt-4">
+        <img src="https://tpc.googlesyndication.com/simgad/13198354872875258707" alt="Descrição da Imagem"
+            class="responsive-image mx-auto d-block" style="border: 5px solid rgb(15, 15, 15); border-radius: 8px;">
+    </div>
+
+    <div class="container text-left mt-4">
+        <h2 style="color: red; margin: 0;">JP NEWS <div class="pulsar"></div>
+        </h2>
+    </div>
+
+    <div class="container d-flex flex-column flex-md-row align-items-start mt-4">
+        <div class="video-container me-4">
+            <iframe src="https://www.youtube.com/embed/JtfoKDu0s8w?autoplay=1&mute=1" frameborder="0"
+                allowfullscreen></iframe>
+        </div>
+        <div class="photo-container">
+            <div class="image-container position-relative me-4 mb-4">
+                <img src="https://s.jpimg.com.br/wp-content/themes/jovempan/assets/src/images/img_ao_vivo_player.jpg"
+                    alt="Imagem 1" class="photo-image">
+                <div class="overlay-text position-absolute bottom-0 start-0 p-2 text-white bg-dark bg-opacity-50 w-100">
+                    Jornal Jp News</div>
+            </div>
+            <div class="image-container position-relative me-4 mb-4">
+                <img src="https://i.ytimg.com/vi/MDyd0iUAx3E/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBtXM6vfYMIGpD3-_aHAE1tvztf7A"
+                    alt="Imagem 2" class="photo-image">
+                <div class="overlay-text position-absolute bottom-0 start-0 p-2 text-white bg-dark bg-opacity-50 w-100">
+                    Jornal Da Manhã Jp News</div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <div class="container text-center mt-4">
+        <img src="https://tpc.googlesyndication.com/simgad/13198354872875258707" alt="Descrição da Imagem"
+            class="responsive-image mx-auto d-block" style="border: 5px solid rgb(15, 15, 15); border-radius: 8px;">
+    </div>
+
+    <div class="container d-flex flex-column flex-md-row align-items-start mt-4">
+        <div class="video-container me-4">
+            <iframe src="https://www.youtube.com/embed/bnlECx-6HGE?autoplay=1&mute=1" frameborder="0"
+                allowfullscreen></iframe>
+        </div>
+        <div class="photo-container">
+            <img src="https://jpimg.com.br/uploads/2024/08/fast-news-24-08-2024-300x170.jpg" alt="Imagem 1"
+                class="photo-image">
+            <img src="https://jpimg.com.br/uploads/2023/05/jornal-jovem-pan-05-05-2023-1024x576.jpg" alt="Imagem 2"
+                class="photo-image">
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-7"> <!-- Primeiro Card -->
+                <div class="card custom-card">
+                    <img src="https://jpimg.com.br/uploads/2024/08/silvio-santos-jovem-pan-960x576.jpg"
+                        class="card-img-top img-fluid" alt="Notícia 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Silvio Santos era um fã declarado da Jovem Pan</h5>
+                        <p class="card-text">
+                        <a href="https://jovempan.com.br/jpnews/silvio-santos-era-um-fa-declarado-da-jovem-pan-e-ouvia-a-radio-todas-as-manhas.html" class="btn btn-dark">Leia mais</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-7"> <!-- Segundo Card -->
+                <div class="card custom-card">
+                    <img src="https://jpimg.com.br/uploads/2023/09/design-sem-nome-1-9-300x170.png"
+                        class="card-img-top img-fluid" alt="Notícia 5">
+                    <div class="card-body">
+                        <h5 class="card-title">Inauguração de estúdio da Jovem Pan</h5>
+                        <p class="card-text">Reúne empresários e autoridades políticas.</p>
+                        <a href="https://jovempan.com.br/programas/jornal-da-manha/inauguracao-de-estudio-da-jovem-pan-em-sao-jose-do-rio-preto-reune-empresarios-e-autoridades-politicas.html" class="btn btn-dark">Leia mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-7"> <!-- Terceiro Card -->
+                <div class="card custom-card">
+                    <img src="https://img.youtube.com/vi/A4YZDGhSD5I/maxresdefault.jpg" class="card-img-top img-fluid"
+                        alt="Notícia 6">
+                    <div class="card-body">
+                        <h5 class="card-title">O que esperar das eleições nos EUA?</h5>
+                        <p class="card-text"></p>
+                        <a href="https://jovempan.com.br/videos/jpnews/o-que-esperar-das-eleicoes-nos-eua.html" class="btn btn-dark">Leia mais</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-7"> <!-- Quarto Card -->
+                <div class="card custom-card">
+                    <img src="https://jpimg.com.br/uploads/2024/09/morto-750x400.jpg" class="card-img-top img-fluid"
+                        alt="Notícia 7">
+                    <div class="card-body">
+                        <h5 class="card-title">Laudo mostra que homem morto pelo cunhado em São Paulo levou 11 facadas
+                        </h5>
+                        <p class="card-text"></p>
+                        <a href="https://jovempan.com.br/noticias/brasil/homem-e-assassinado-pelo-cunhado-com-11-facadas-em-sao-paulo.html" class="btn btn-dark">Leia mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="container">
+
+            <div class="row justify-content-center">
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-center">
+                        <img src="https://jpimg.com.br/uploads/2023/07/jp-verbas-300x170.png" class="me-3 img-fluid"
+                            alt="Notícia 4">
+                        <div>
+                            <h5 class="card-title">Verba do atual governo para rádio, TV e internet não é dividida de
+                                forma técnica</h5>
+                            <p class="card-text"></p>
+                            <a href="https://jovempan.com.br/jpnews/verba-do-atual-governo-para-radio-tv-e-internet-nao-e-dividida-de-forma-tecnica.html"
+                                class="btn btn-dark">Leia mais</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-center">
+                        <img src="https://jpimg.com.br/uploads/2023/07/design-sem-nome-2-2-300x170.png"
+                            class="me-3 img-fluid" alt="Notícia 5">
+                        <div>
+                            <h5 class="card-title">Jovem Pan na história do país: Em 1985, rádio antecipou vitória de
+                                Jânio Quadros nas eleições de São Paulo</h5>
+                            <p class="card-text"></p>
+                            <a href="https://jovempan.com.br/noticias/brasil/jovem-pan-na-historia-do-pais-em-1985-radio-antecipou-vitoria-de-janio-quadros-nas-eleicoes-de-sao-paulo.html"
+                                class="btn btn-dark">Leia mais</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center"> <!-- Adicionado justify-content-center -->
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-center">
+                        <img src="https://jpimg.com.br/uploads/2023/07/design-sem-nome-3-1-300x170.png"
+                            class="me-3 img-fluid" alt="Notícia 6">
+                        <div>
+                            <h5 class="card-title">Jovem Pan na história do país: Paulo Machado de Carvalho chefiou
+                                delegação brasileira campeã das Copas do Mundo de 1958 e 1962</h5>
+                            <p class="card-text"></p>
+                            <a href="https://jovempan.com.br/noticias/brasil/jovem-pan-na-historia-do-pais-paulo-machado-de-carvalho-chefiou-delegacao-brasileira-campea-das-copas-do-mundo-de-1958-e-1962.html"
+                                class="btn btn-dark">Leia mais</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-center">
+                        <img src="https://jpimg.com.br/uploads/2024/05/esc20240524010-300x170.jpg"
+                            class="me-3 img-fluid" alt="Notícia 7">
+                        <div>
+                            <h5 class="card-title">Nunes dedica domingo a compromissos com cristãos e diz que Marçal é
+                                ‘risco à humanidade’</h5>
+                            <p class="card-text"></p>
+                            <a href="https://jovempan.com.br/noticias/politica/nunes-dedica-domingo-a-compromissos-com-cristaos-e-diz-que-marcal-e-risco-a-humanidade.html"
+                                class="btn btn-dark">Leia mais</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container" style="margin-top: 100px;"> <!-- Ajuste para não sobrepor a navbar -->
+        <div class="d-flex justify-content-start align-items-start"> <!-- Flexbox para alinhar cards e imagem -->
+            <div class="d-flex flex-wrap"> <!-- Flexbox para centralizar os cards -->
+                <div class="card">
+                    <div class="red-bar"></div> <!-- Barra vermelha -->
+                    <img src="https://jpimg.com.br/uploads/2024/07/conexao-motta-871x576.jpg" class="card-img-top"
+                        alt="Imagem do Card 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Jovem Pan News lança novo programa com Roberto
+                            Mottaㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</h5>
+                        <p class="card-text"></p>
+                        <a href="https://jovempan.com.br/jpnews/jovem-pan-news-lanca-novo-programa-com-roberto-motta.html" class="btn btn-dark">Leia mais</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="red-bar"></div> <!-- Barra vermelha -->
+                    <img src="https://jpimg.com.br/uploads/2023/10/16011573836_d5f56f1ce3_k-865x576.jpg"
+                        class="card-img-top" alt="Imagem do Card 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Sleeping Giants sofre nova derrota e tramitação do processo é encerrada
+                            no TJSP</h5>
+                        <p class="card-text"></p>
+                        <a href="https://jovempan.com.br/noticias/brasil/sleeping-giants-sofre-nova-derrota-e-tramitacao-do-processo-e-encerrada-no-tjsp.html" class="btn btn-dark">Leia mais</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="red-bar"></div> <!-- Barra vermelha -->
+                    <img src="https://jpimg.com.br/uploads/2024/06/7304134708_e18e1b0c0d_k-865x576.jpg"
+                        class="card-img-top" alt="Imagem do Card 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Jovem Pan inicia campanha de doação de rádios a pilha para vítimas das
+                            enchentes no RSㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</h5>
+                        <p class="card-text"></p>
+                        <a href="https://jovempan.com.br/noticias/brasil/jovem-pan-inicia-campanha-de-doacao-de-radios-a-pilha-para-vitimas-das-enchentes-no-rs.html" class="btn btn-dark">Leia mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-start align-items-start"> <!-- Segunda linha de cards sem margem superior -->
+            <div class="d-flex flex-wrap"> <!-- Flexbox para centralizar os cards -->
+                <div class="card">
+                    <div class="red-bar"></div> <!-- Barra vermelha -->
+                    <img src="https://jpimg.com.br/uploads/2024/05/radiopilha-961x576.png" class="card-img-top"
+                        alt="Imagem do Card 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Jovem Pan inicia campanha de doação de rádios a pilha para vítimas das
+                            enchentes no RS</h5>
+                        <p class="card-text"></p>
+                        <a href="https://jovempan.com.br/noticias/brasil/jovem-pan-inicia-campanha-de-doacao-de-radios-a-pilha-para-vitimas-das-enchentes-no-rs.html" class="btn btn-dark">Leia mais</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="red-bar"></div> <!-- Barra vermelha -->
+                    <img src="https://jpimg.com.br/uploads/2024/04/whatsapp-image-2024-04-10-at-18.07.22-1-843x576.jpeg"
+                        class="card-img-top" alt="Imagem do Card 5">
+                    <div class="card-body">
+                        <h5 class="card-title">Vice-presidente e diretor de rede do Grupo Jovem Pan se encontram com
+                            presidente da Comissão de Comunicação e Direito Digital do Senado</h5>
+                        <p class="card-text"></p>
+                        <a href="https://jovempan.com.br/jpnews/vice-presidente-e-diretor-de-rede-do-grupo-jovem-pan-se-encontram-com-presidente-da-comissao-de-comunicacao-e-direito-digital.html" class="btn btn-dark">Leia mais</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="red-bar"></div> <!-- Barra vermelha -->
+                    <img src="https://jpimg.com.br/uploads/2019/07/microfone-jovem-pan.jpg" class="card-img-top"
+                        alt="Imagem do Card 6">
+                    <div class="card-body">
+                        <h5 class="card-title">Errata sobre uso indevido da imagem de Ricardo Capelli</h5>
+                        <p class="card-text"></p>
+                        <a href="https://jovempan.com.br/jpnews/errata-sobre-uso-indevido-da-imagem-de-ricardo-capelli.html" class="btn btn-dark">Leia mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-start align-items-start"> <!-- Segunda linha de cards sem margem superior -->
+            <div class="d-flex flex-wrap"> <!-- Flexbox para centralizar os cards -->
+                <div class="card">
+                    <div class="red-bar"></div> <!-- Barra vermelha -->
+                    <img src="https://jpimg.com.br/uploads/2024/03/rua20240325008-865x576.jpg" class="card-img-top"
+                        alt="Imagem do Card 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Defesa de Bolsonaro quer entregar em mãos explicações sobre estadia na
+                            Embaixada da Hungria</h5>
+                        <p class="card-text"></p>
+                        <a href="https://jovempan.com.br/noticias/politica/defesa-de-bolsonaro-quer-entregar-em-maos-explicacoes-sobre-estadia-na-embaixada-da-hungria.html" class="btn btn-dark">Leia mais</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="red-bar"></div> <!-- Barra vermelha -->
+                    <img src="https://jpimg.com.br/uploads/2024/03/youtubevitorsantos-1024x573.png" class="card-img-top"
+                        alt="Imagem do Card 5">
+                    <div class="card-body">
+                        <h5 class="card-title">‘A ação de um não pode macular uma história de 200 anos’, diz secretário
+                            de Segurança do RJ sobre caso Marielle</h5>
+                        <p class="card-text"></p>
+                        <a href="https://jovempan.com.br/noticias/politica/a-acao-de-um-nao-pode-macular-uma-historia-de-200-anos-diz-secretario-de-seguranca-do-rj-sobre-caso-marielle.html" class="btn btn-dark">Leia mais</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="red-bar"></div> <!-- Barra vermelha -->
+                    <img src="https://img.youtube.com/vi/gIG2ozmQ02Q/maxresdefault.jpg" class="card-img-top"
+                        alt="Imagem do Card 6">
+                    <div class="card-body">
+                        <h5 class="card-title">Rússia abre urnas para eleição presidencial</h5>
+                        <p class="card-text"></p>
+                        <a href="https://jovempan.com.br/videos/jpnews/russia-abre-urnas-para-eleicao-presidencial.html" class="btn btn-dark">Leia mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-start align-items-start"> <!-- Segunda linha de cards sem margem superior -->
+            <div class="d-flex flex-wrap"> <!-- Flexbox para centralizar os cards -->
+                <div class="card">
+                    <div class="red-bar"></div> <!-- Barra vermelha -->
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT947xcAYiIQUknoQEHouqsSESi19WhuLFV-Q&s"
+                        class="card-img-top" alt="Imagem do Card 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Funcionárias de creche no RS são indiciadas por tortura contra crianças
+                        </h5>
+                        <p class="card-text"></p>
+                        <a href="https://jovempan.com.br/videos/jpnews/funcionarias-de-creche-no-rs-sao-indiciadas-por-tortura-contra-criancas.html" class="btn btn-dark">Leia mais</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="red-bar"></div> <!-- Barra vermelha -->
+                    <img src="https://jpimg.com.br/uploads/2021/10/jp-news-corte-856x576.jpeg" class="card-img-top"
+                        alt="Imagem do Card 5">
+                    <div class="card-body">
+                        <h5 class="card-title">Jovem Pan News é o único canal com aumento no share de audiência em 2023
+                            e em novembro manteve a vice-liderança</h5>
+                        <p class="card-text"></p>
+                        <a href="https://jovempan.com.br/noticias/brasil/jovem-pan-news-e-o-unico-canal-com-aumento-no-share-de-audiencia-em-2023-e-em-novembro-manteve-a-vice-lideranca.html" class="btn btn-dark">Leia mais</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="red-bar"></div> <!-- Barra vermelha -->
+                    <img src="https://jpimg.com.br/uploads/2023/11/jpblackfriday-960x576.png" class="card-img-top"
+                        alt="Imagem do Card 6">
+                    <div class="card-body">
+                        <h5 class="card-title">Com desconto de até 75%, Jovem Pan lança plano de assinatura especial
+                            para a Black Friday; veja como participar</h5>
+                        <p class="card-text"></p>
+                        <a href="https://jovempan.com.br/noticias/brasil/com-desconto-de-ate-75-jovem-pan-lanca-plano-de-assinatura-especial-para-a-black-friday-veja-como-participar.html" class="btn btn-dark">Leia mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-start align-items-start"> <!-- Segunda linha de cards sem margem superior -->
+            <div class="d-flex flex-wrap"> <!-- Flexbox para centralizar os cards -->
+                <div class="card">
+                    <div class="red-bar"></div> <!-- Barra vermelha -->
+                    <img src="https://www.rbsdirect.com.br/filestore/7/6/4/9_2ca63b0dfe38e33/9467_bf9dc8106a9d7f8.jpg?w=700"
+                        class="card-img-top" alt="Imagem do Card 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Ana Hickmann faz boletim de ocorrência contra marido</h5>
+                        <p class="card-text"></p>
+                        <a href="https://jovempan.com.br/entretenimento/famosos/ana-hickhman-confirma-desentendimento-com-marido-e-ida-a-delegacia.html" class="btn btn-dark">Leia mais</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="red-bar"></div> <!-- Barra vermelha -->
+                    <img src="https://i.ytimg.com/vi/db4vtdCn0II/maxresdefault.jpg" class="card-img-top"
+                        alt="Imagem do Card 5">
+                    <div class="card-body">
+                        <h5 class="card-title">Líderes do Hamas podem estar em bunker sob hospital em Gaza</h5>
+                        <p class="card-text"></p>
+                        <a href="https://jovempan.com.br/videos/jpnews/lideres-do-hamas-podem-estar-em-bunker-sob-hospital-em-gaza.html" class="btn btn-dark">Leia mais</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="red-bar"></div> <!-- Barra vermelha -->
+                    <img src="https://f.i.uol.com.br/fotografia/2023/10/27/1698434303653c0cffbb25b_1698434303_3x2_rt.jpg"
+                        class="card-img-top" alt="Imagem do Card 6">
+                    <div class="card-body">
+                        <h5 class="card-title">Resolução dos países árabes sobre guerra em Israel é vetada na ONU</h5>
+                        <p class="card-text"></p>
+                        <a href="https://jovempan.com.br/videos/jpnews/resolucao-dos-paises-arabes-sobre-guerra-em-israel-e-vetada-na-onu.html" class="btn btn-dark">Leia mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<footer style="background-color: #f8f9fa; padding: 20px 0;"></footer>
+<div style="background-color: #e0e0e0; padding: 30px 0;"> <!-- Barra superior -->
+    <h5 style="text-align: center; color: #141414;">Jovem Pan</h5>
+</div>
+<div style="background-color: #e20e0e; padding: 30px 0;"> <!-- Barra inferior -->
+    <div class="container">
+        <div class="row text-center">
+            <div class="col"><a href="#" style="color: #333; text-decoration: none;">POLÍTICA</a></div>
+            <div class="col"><a href="#" style="color: #333; text-decoration: none;">BRASIL</a></div>
+            <div class="col"><a href="#" style="color: #333; text-decoration: none;">ECONOMIA</a></div>
+            <div class="col"><a href="#" style="color: #333; text-decoration: none;">MUNDO</a></div>
+            <div class="col"><a href="#" style="color: #333; text-decoration: none;">ESPORTES</a></div>
+            <div class="col"><a href="#" style="color: #333; text-decoration: none;">SAÚDE</a></div>
+            <div class="col"><a href="#" style="color: #333; text-decoration: none;">ENTRETENIMENTO</a></div>
+            <div class="col"><a href="#" style="color: #333; text-decoration: none;">CONTATO</a></div>
+        </div>
+    </div>
+</div>
+<div style="text-align: center; margin-top: 10px; color: #000000;">
+    <p>&copy; 2024 Jovem Pan. Todos os direitos reservados.</p>
+</div>
+</footer>
+
+</html>
